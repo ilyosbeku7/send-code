@@ -1,4 +1,5 @@
 from django.db import models
+import random
 from django.contrib.auth.models import AbstractBaseUser
 # from .manager import Usermanager
 # Create your models here.
@@ -12,3 +13,12 @@ class User(AbstractBaseUser):
     USERNAME_FIELD='phone_number'
     REQUIRED_FIELDS=[]
     # objects=Usemanager
+
+    def generate_otp(self):
+        otp = random.randint(1000, 9999)
+        self.otp = otp
+
+    def save(self, *args, **kwargs):
+        if not self.otp:
+            self.generate_otp()
+        super().save(*args, **kwargs)

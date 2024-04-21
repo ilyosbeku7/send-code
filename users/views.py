@@ -16,7 +16,7 @@ def send_otp(request):
             'message':'key phone number is required'  
         })
     
-    if data.get('passqord') is None:
+    if data.get('password') is None:
         return Response({
             'status': 400,
             'message': 'key phone number is required'  
